@@ -1,14 +1,12 @@
-from app.repositories.company_repository import CompanyRepository
+from sqlalchemy.orm import Session
+
+from app.repositories.company_repository import create_company, get_companies
 from app.schemas.company import CompanyCreate
 
 
-class CompanyService:
-    def __init__(self, repository: CompanyRepository):
-        self.repository = repository
+def create(db: Session, company: CompanyCreate):
+    return create_company(db, company)
 
-    def create_company(self, company_data: CompanyCreate):
-        payload = company_data.model_dump()
-        return self.repository.create(payload)
 
-    def list_companies(self):
-        return self.repository.list()
+def get_all(db: Session):
+    return get_companies(db)

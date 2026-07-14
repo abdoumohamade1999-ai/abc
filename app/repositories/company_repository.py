@@ -14,3 +14,7 @@ def create_company(db: Session, company: CompanyCreate):
     db.commit()
     db.refresh(new_company)
     return new_company
+
+
+def get_companies(db: Session):
+    return db.query(Company).all()
